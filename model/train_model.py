@@ -67,14 +67,14 @@ def calculateSpamHamEachWordClassProb(vocabulary):
 
 def calculateSpamWordProbability(word_count=0):
     word_count = 0 if word_count is None else word_count
-    numerator = word_count + calculated_values.smoothing
+    numerator = word_count + constants.smoothing
     denominator = calculated_values.wordsInSpam + calculated_values.vocabLen
     return numerator / denominator
 
 
 def calculateHamWordProbability(word_count=0):
     word_count = 0 if word_count is None else word_count
-    numerator = word_count + calculated_values.smoothing
+    numerator = word_count + constants.smoothing
     denominator = calculated_values.wordsInHam + calculated_values.vocabLen
     return numerator / denominator
 
