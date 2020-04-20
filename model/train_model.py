@@ -87,7 +87,7 @@ def calculateClassProbability():
 
 
 def startTraining():
-    trainingPath = "../train/"
+    trainingPath = constants.TRAINING_FILES
     hamFilesCount, spamFilesCount = readFilesFromDirectory(dirPath=trainingPath)
     cv.spamFilesCount = spamFilesCount
     cv.hamFilesCount = hamFilesCount
@@ -102,7 +102,7 @@ def startTraining():
 
 if __name__ == '__main__':
     # model already trained
-    if os.path.exists("../files/model.txt"):
+    if os.path.exists(constants.FILES_PATH + "model.txt"):
         fp.readCalculatedValues()
         fp.readTrainedModelFile()
     else:
@@ -110,5 +110,5 @@ if __name__ == '__main__':
         startTraining()
         fp.writeCalculatedValues()
         fp.readTrainedModelFile()
-    testingFilePath = "../test/"
+    testingFilePath = constants.TESTING_FILES
     nb.startPredicting(testingFilePath)
