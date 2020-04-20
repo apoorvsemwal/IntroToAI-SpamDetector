@@ -23,8 +23,8 @@ def processTestFile(filePath=""):
 
 
 def predictForSpamOrHam(filename, tokens):
-    spamChances = getHamPredictionValue(tokens)
-    hamChances = getSpamPredictionValue(tokens)
+    hamChances = getHamPredictionValue(tokens)
+    spamChances = getSpamPredictionValue(tokens)
     if hamChances > spamChances:
         print(filename, "ham")
     else:
