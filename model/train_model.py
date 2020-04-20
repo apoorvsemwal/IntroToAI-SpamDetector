@@ -67,14 +67,14 @@ def calculateSpamHamEachWordClassProb(vocabulary):
 
 def calculateSpamWordProbability(word_count=0):
     word_count = 0 if word_count is None else word_count
-    numerator = word_count + constants.smoothing
+    numerator = word_count + constants.SMOOTHING
     denominator = cv.wordsInSpam + cv.vocabLen
     return numerator / denominator
 
 
 def calculateHamWordProbability(word_count=0):
     word_count = 0 if word_count is None else word_count
-    numerator = word_count + constants.smoothing
+    numerator = word_count + constants.SMOOTHING
     denominator = cv.wordsInHam + cv.vocabLen
     return numerator / denominator
 
@@ -102,7 +102,7 @@ def startTraining():
 
 if __name__ == '__main__':
     # model already trained
-    if os.path.exists("model.txt"):
+    if os.path.exists("../files/model.txt"):
         fp.readCalculatedValues()
         fp.readTrainedModelFile()
     else:

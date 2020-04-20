@@ -10,3 +10,5 @@ Files information:
 - **model.txt:** A file which stores the tuples containing word,tf(ham),prob(ham),tf(spam),prob(spam)
 
 - **values.txt:** A file which stores the in-memory value, so that during testing phase it can directly use the previous train values.
+
+- **result.txt:** Stores the results as mentioned in the project description

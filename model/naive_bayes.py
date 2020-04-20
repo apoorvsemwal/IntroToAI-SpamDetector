@@ -1,16 +1,20 @@
 from os import walk
 import math
 from model import calculated_values as cv
+from model import constants
 from model import pre_processing
+from model import file_operation as fp
 
 
 def startPredicting(filepath=""):
+    predictionFileObj = fp.getPredictionFileObj()
     for (dirpath, _, filenames) in walk(filepath):
         for filename in filenames:
-            processTestFile(dirpath + filename)
+            processTestFile(dirpath + filename, predictionFileObj)
+    predictionFileObj.close()
 
 
-def processTestFile(filePath=""):
+def processTestFile(filePath="", predictionFileObj=None):
     with open(filePath, mode='r', encoding='iso-8859-1') as testFile:
         fileContent = ""
         for line in testFile:
@@ -19,16 +23,27 @@ def processTestFile(filePath=""):
                 line = str(line.encode('utf-8'), 'utf-8')
                 fileContent += pre_processing.cleaningSteps(line)
         tokens = pre_processing.textToTokens(fileContent)
-        predictForSpamOrHam(filePath, set(tokens))
+        predictForSpamOrHam(filePath, set(tokens), predictionFileObj)
 
 
-def predictForSpamOrHam(filename, tokens):
+def predictForSpamOrHam(filepath, tokens, predictionFileObj):
+    cv.predictionCounter += 1
+    filename = filepath.split("/")[-1]
+    fileRealClass = constants.HAM if constants.HAM in filename else constants.SPAM
     hamChances = getHamPredictionValue(tokens)
     spamChances = getSpamPredictionValue(tokens)
     if hamChances > spamChances:
-        print(filename, "ham")
+        predictionFileObj.write(
+            str(cv.predictionCounter) + " " + filename + " " + constants.HAM + " " + str(hamChances) + " " + str(
+                spamChances) + " " + fileRealClass + " " + (
+                "right" if fileRealClass == constants.HAM else "wrong") + "\n"
+        )
     else:
-        print(filename, "spam")
+        predictionFileObj.write(
+            str(cv.predictionCounter) + " " + filename + " " + constants.SPAM + " " + str(hamChances) + " " + str(
+                spamChances) + " " + fileRealClass + " " + ("right" if fileRealClass == constants.SPAM else "wrong") +
+            "\n"
+        )
 
 
 def getSpamPredictionValue(tokens):

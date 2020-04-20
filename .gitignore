@@ -2,5 +2,4 @@
 test
 train
 *.pyc
-model/values.txt
-model/model.txt
+files/*.txt

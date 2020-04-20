@@ -1,3 +1,3 @@
 SPAM = "spam"
 HAM = "ham"
-smoothing = 0.5
+SMOOTHING = 0.5
