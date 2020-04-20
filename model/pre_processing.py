@@ -12,8 +12,8 @@ def cleaningSteps(rawText=""):
     rawText = rawText.replace("'", " ")
     rawText = rawText.translate(rawText.maketrans('', '', string.punctuation))
     rawText = re.sub('\s+', ' ', rawText)
-    # rawText = re.sub(r"\x08.", "", rawText)
-    return rawText.strip()
+    rawText = re.sub(r"\x08.", "", rawText)
+    return rawText
 
 
 def textToTokens(line=""):

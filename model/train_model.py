@@ -1,46 +1,45 @@
-from os import walk
-from model import preprocessing
-from model import calculated_values
+import os
+from model import pre_processing
+from model import calculated_values as cv
 from model import constants
-
-spamWordsWithFreq = {}
-hamWordsWithFreq = {}
+from model import file_operation as fp
+from model import naive_bayes as nb
 
 
 def updateSpamAndHamVocab(filepath="", className=constants.HAM):
     with open(filepath, mode='r', encoding='iso-8859-1') as trainFile:
         for line in trainFile:
             # replace new line by empty space
-            # line = str(line.encode('utf-8'), 'utf-8')
-            line = preprocessing.cleaningSteps(line)
+            line = str(line.encode('utf-8'), 'utf-8')
+            line = pre_processing.cleaningSteps(line)
             if line != "":
-                tokens = preprocessing.textToTokens(line.strip())
+                tokens = pre_processing.textToTokens(line)
                 updateWordsDictionary(tokens, className)
 
 
 def updateWordsDictionary(tokens=None, className=""):
     for token in tokens:
-        if token != '':
+        if token != '' and len(token) >= 2:
             if className == constants.SPAM:
-                if token in spamWordsWithFreq:
-                    count = spamWordsWithFreq.get(token) + 1
-                    spamWordsWithFreq[token] = count
+                if token in cv.spamWordsWithFreq:
+                    count = cv.spamWordsWithFreq.get(token) + 1
+                    cv.spamWordsWithFreq[token] = count
                 else:
-                    spamWordsWithFreq[token] = 1
-                    calculated_values.wordsInSpam += 1
+                    cv.spamWordsWithFreq[token] = 1
+                    cv.wordsInSpam += 1
             else:
-                if token in hamWordsWithFreq:
-                    count = hamWordsWithFreq.get(token) + 1
-                    hamWordsWithFreq[token] = count
+                if token in cv.hamWordsWithFreq:
+                    count = cv.hamWordsWithFreq.get(token) + 1
+                    cv.hamWordsWithFreq[token] = count
                 else:
-                    hamWordsWithFreq[token] = 1
-                    calculated_values.wordsInHam += 1
+                    cv.hamWordsWithFreq[token] = 1
+                    cv.wordsInHam += 1
 
 
 def readFilesFromDirectory(dirPath=""):
     noOfHamFiles = 0
     noOfSpamFiles = 0
-    for (dirpath, _, filenames) in walk(dirPath):
+    for (dirpath, _, filenames) in os.walk(dirPath):
         for name in filenames:
             if constants.HAM in name:
                 noOfHamFiles += 1
@@ -49,56 +48,67 @@ def readFilesFromDirectory(dirPath=""):
                 noOfSpamFiles += 1
                 currentFileClass = constants.SPAM
             updateSpamAndHamVocab(dirpath + name, currentFileClass)
-            # break
     return [noOfHamFiles, noOfSpamFiles]
 
 
 def calculateSpamHamEachWordClassProb(vocabulary):
-    spam_file = open("spam_prb.txt", "w")
-    ham_file = open("ham_prb.txt", "w")
+    trained_tuples = []
+    count = 0
     for word in vocabulary:
-        spam_word_prob = calculateSpamWordProbability(spamWordsWithFreq.get(word))
-        ham_word_prob = calculateHamWordProbability(hamWordsWithFreq.get(word))
-        spam_file.write(constants.SPAM + " :" + word + " : " + str(round(spam_word_prob, 6)) + "\n")
-        ham_file.write(constants.HAM + " :" + word + " : " + str(round(ham_word_prob, 6)) + "\n")
-    spam_file.close()
-    ham_file.close()
+        count += 1
+        currentWordFreqInSpam = 0 if cv.spamWordsWithFreq.get(word) is None else cv.spamWordsWithFreq.get(word)
+        currentWordFreqInHam = 0 if cv.hamWordsWithFreq.get(word) is None else cv.hamWordsWithFreq.get(word)
+        spamWordProb = calculateSpamWordProbability(currentWordFreqInSpam)
+        hamWordProb = calculateHamWordProbability(currentWordFreqInHam)
+        trained_tuples.append((count, word, currentWordFreqInHam, hamWordProb, currentWordFreqInSpam, spamWordProb))
+    trained_tuples = sorted(trained_tuples)
+    fp.writeTrainedTuples(trained_tuples)
 
 
 def calculateSpamWordProbability(word_count=0):
     word_count = 0 if word_count is None else word_count
     numerator = word_count + constants.smoothing
-    denominator = calculated_values.wordsInSpam + calculated_values.vocabLen
+    denominator = cv.wordsInSpam + cv.vocabLen
     return numerator / denominator
 
 
 def calculateHamWordProbability(word_count=0):
     word_count = 0 if word_count is None else word_count
     numerator = word_count + constants.smoothing
-    denominator = calculated_values.wordsInHam + calculated_values.vocabLen
+    denominator = cv.wordsInHam + cv.vocabLen
     return numerator / denominator
 
 
 def calculateClassProbability():
-    calculated_values.spamClassProbability = calculated_values.spamFilesCount / (
-            calculated_values.spamFilesCount + calculated_values.hamFilesCount)
-    calculated_values.hamClassProbability = calculated_values.hamFilesCount / (
-            calculated_values.spamFilesCount + calculated_values.hamFilesCount)
-    print(calculated_values.spamClassProbability, calculated_values.hamClassProbability)
+    cv.spamClassProbability = cv.spamFilesCount / (
+            cv.spamFilesCount + cv.hamFilesCount)
+    cv.hamClassProbability = cv.hamFilesCount / (
+            cv.spamFilesCount + cv.hamFilesCount)
 
 
 def startTraining():
     trainingPath = "../train/"
     hamFilesCount, spamFilesCount = readFilesFromDirectory(dirPath=trainingPath)
-    calculated_values.spamFilesCount = spamFilesCount
-    calculated_values.hamFilesCount = hamFilesCount
-    hamKeys = set(hamWordsWithFreq.keys())
-    spamKeys = set(spamWordsWithFreq.keys())
+    cv.spamFilesCount = spamFilesCount
+    cv.hamFilesCount = hamFilesCount
+    hamKeys = set(cv.hamWordsWithFreq.keys())
+    spamKeys = set(cv.spamWordsWithFreq.keys())
     hamKeys = hamKeys.union(spamKeys)
-    calculated_values.vocabLen = len(hamKeys)
+    cv.vocabLen = len(hamKeys)
     sorted(hamKeys)
+    calculateClassProbability()
     calculateSpamHamEachWordClassProb(hamKeys)
 
 
 if __name__ == '__main__':
-    startTraining()
+    # model already trained
+    if os.path.exists("model.txt"):
+        fp.readCalculatedValues()
+        fp.readTrainedModelFile()
+    else:
+        print("Training Model")
+        startTraining()
+        fp.writeCalculatedValues()
+        fp.readTrainedModelFile()
+    testingFilePath = "../test/"
+    nb.startPredicting(testingFilePath)
