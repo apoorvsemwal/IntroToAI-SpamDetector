@@ -1,7 +1,9 @@
 # IntroToAI-SpamDetector
+![Spam-Ham Classification](https://1.bp.blogspot.com/-R4PgHVRlJvg/WhrDWjWy1AI/AAAAAAAAdCs/CMrnBlGaf6kSzm4TOQPN7y2Pf6E-QpGUACLcBGAs/s400/ml.PNG)
+
 COMP-6721-Project 2-SpamDetection
 
-###### Main file: train_model.py
+**Main file: train_model.py**
 
 Files information:
 
