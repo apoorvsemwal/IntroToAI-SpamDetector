@@ -17,3 +17,9 @@ valuesIndex = {"hamFilesCount": hamFilesCount, "spamFilesCount": spamFilesCount,
                "spamClassProbability": spamClassProbability, "hamClassProbability": hamClassProbability,
                "vocabLen": vocabLen, "wordsInSpam": wordsInSpam, "wordsInHam": wordsInHam,
                }
+
+# for confusion matrix
+TruePositive = 0
+FalsePositive = 0
+TrueNegative = 0
+FalseNegative = 0
