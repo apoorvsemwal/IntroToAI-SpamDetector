@@ -4,6 +4,7 @@ from model import calculated_values as cv
 from model import constants
 from model import file_operation as fp
 from model import naive_bayes as nb
+from model import graph
 
 
 def updateSpamAndHamVocab(filepath="", className=constants.HAM):
@@ -68,14 +69,14 @@ def calculateSpamHamEachWordClassProb(vocabulary):
 def calculateSpamWordProbability(word_count=0):
     word_count = 0 if word_count is None else word_count
     numerator = word_count + constants.SMOOTHING
-    denominator = cv.wordsInSpam + cv.vocabLen
+    denominator = cv.wordsInSpam + (cv.vocabLen * constants.SMOOTHING)
     return numerator / denominator
 
 
 def calculateHamWordProbability(word_count=0):
     word_count = 0 if word_count is None else word_count
     numerator = word_count + constants.SMOOTHING
-    denominator = cv.wordsInHam + cv.vocabLen
+    denominator = cv.wordsInHam + (cv.vocabLen * constants.SMOOTHING)
     return numerator / denominator
 
 
@@ -112,3 +113,4 @@ if __name__ == '__main__':
         fp.readTrainedModelFile()
     testingFilePath = constants.TESTING_FILES
     nb.startPredicting(testingFilePath)
+    graph.predictionGraph(cv.predicted_spam, cv.predicted_ham)

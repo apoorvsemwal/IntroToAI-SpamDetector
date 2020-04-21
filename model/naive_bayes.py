@@ -12,6 +12,9 @@ def startPredicting(filepath=""):
         for filename in filenames:
             processTestFile(dirpath + filename, predictionFileObj)
     predictionFileObj.close()
+    print("========= Prediction Results =========")
+    print("Total spam predicted: ", cv.predicted_spam, "/", constants.TOTAL_TEST_SPAM)
+    print("Total ham predicted: ", cv.predicted_ham, "/", constants.TOTAL_TEST_HAM)
 
 
 def processTestFile(filePath="", predictionFileObj=None):
@@ -33,12 +36,14 @@ def predictForSpamOrHam(filepath, tokens, predictionFileObj):
     hamChances = getHamPredictionValue(tokens)
     spamChances = getSpamPredictionValue(tokens)
     if hamChances > spamChances:
+        cv.predicted_ham += 1
         predictionFileObj.write(
             str(cv.predictionCounter) + " " + filename + " " + constants.HAM + " " + str(hamChances) + " " + str(
                 spamChances) + " " + fileRealClass + " " + (
                 "right" if fileRealClass == constants.HAM else "wrong") + "\n"
         )
     else:
+        cv.predicted_spam += 1
         predictionFileObj.write(
             str(cv.predictionCounter) + " " + filename + " " + constants.SPAM + " " + str(hamChances) + " " + str(
                 spamChances) + " " + fileRealClass + " " + ("right" if fileRealClass == constants.SPAM else "wrong") +
