@@ -3,7 +3,7 @@
 
 ![Spam-Ham Classification](https://1.bp.blogspot.com/-R4PgHVRlJvg/WhrDWjWy1AI/AAAAAAAAdCs/CMrnBlGaf6kSzm4TOQPN7y2Pf6E-QpGUACLcBGAs/s400/ml.PNG)
 
-[Project Report Link](https://drive.google.com/file/d/1p9rSEnRzgfFPDgBrMYYb9S3sczY2pXq9/view)
+[Project Report Link](https://drive.google.com/file/d/1RoaQMpoOOUBgXVKB3MqGv3AAtQxEYrbf/view)
 
 **Main file: launcher.py**
 
@@ -28,7 +28,7 @@ _**Files information:**_
 
 
 _**Instructions to run the project:**_
-* Download/Clone the Project Repo to your loacl machine - [IntroToAI-SpamDetector](https://github.com/apoorvsemwal/IntroToAI-SpamDetector.git)
+* Download/Clone the Project Repo to your local machine - [IntroToAI-SpamDetector](https://github.com/apoorvsemwal/IntroToAI-SpamDetector.git)
 * Note: Project can also be downloaded from google drive - [Google Drive Link](https://drive.google.com/drive/folders/1hFeO5xocprJfMTZcDSfcwEt-uOsAlrHS)
 
 * Navigate to '\IntroToAI-SpamDetector\src' in your terminal
