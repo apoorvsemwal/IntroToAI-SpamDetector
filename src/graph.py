@@ -1,11 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from model import constants
+from src import constants
 
 
 def graph_information():
-    plt.xlabel("Spam/ham")
-    plt.ylabel("No. of files")
+    plt.xlabel("Spam/Ham")
+    plt.ylabel("No. of Results")
     plt.title("Prediction Results")
 
 
@@ -36,6 +36,6 @@ def predictionGraph(predicted_spam, predicted_ham, show_plot=False):
     auto_label(predicted_spam_ham_files, labels)
     if show_plot:
         plt.show()
-    plt.savefig(constants.FILES_PATH + "prediction_results.png")
+    plt.savefig(constants.RESULTS_PATH + "prediction_results.png")
     print("\n========= Graph Generated =========")
-    print("Results image saved in file: " + constants.FILES_PATH + "prediction_results.png")
+    print("Results image saved in file: " + constants.RESULTS_PATH + "prediction_results.png")
