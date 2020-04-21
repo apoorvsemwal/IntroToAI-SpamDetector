@@ -5,7 +5,7 @@
 
 **Main file: train_model.py**
 
-_**Python Files:_**
+_**Python Files:**_
 
 - **calculated_values.py:** stores the values computed by model during the training phase.
 - **constants.py:** stores the constants.
