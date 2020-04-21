@@ -3,6 +3,8 @@
 
 ![Spam-Ham Classification](https://1.bp.blogspot.com/-R4PgHVRlJvg/WhrDWjWy1AI/AAAAAAAAdCs/CMrnBlGaf6kSzm4TOQPN7y2Pf6E-QpGUACLcBGAs/s400/ml.PNG)
 
+[Project Report Link](https://docs.google.com/document/d/16nX3PFPTzmznw6adeIMsn5luUDFEHX495sF_vpjBqkA/edit?usp=sharing)
+
 **Main file: train_model.py**
 
 _**Python Files:**_
