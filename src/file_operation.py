@@ -31,7 +31,7 @@ def readTrainedModelFile():
     with open(constants.RESULTS_PATH + "model.txt", "r", encoding="utf-8") as trainData:
         for line in trainData:
             _, _, word, _, hamProb, _, spamProb = line.split(" ")
-            cv.wordsWithProb[word] = (word, float(hamProb), float(spamProb))
+            cv.wordsWithProb[word] = (float(hamProb), float(spamProb))
 
 
 def getPredictionFileObj():

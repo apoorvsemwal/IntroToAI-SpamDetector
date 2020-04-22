@@ -2,6 +2,6 @@ hamFilesCount 1000
 spamFilesCount 997
 spamClassProbability 0.4992488733099649
 hamClassProbability 0.5007511266900351
-vocabLen 60751
-wordsInSpam 48108
-wordsInHam 20290
+vocabLen 63480
+totalFreqInSpam 637510
+totalFreqInHam 484980

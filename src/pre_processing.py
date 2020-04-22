@@ -2,19 +2,19 @@ import re
 import string
 
 
-def cleaningSteps(rawText=""):
-    rawText = rawText.lower()
-    # rawText = re.split('\[\^a-zA-Z\]', rawText)
-    rawText = re.sub(r"[\.:\/\/\n-@]", " ", rawText)
-    rawText = rawText.replace("[", " ")
-    rawText = rawText.replace("\\", " ")
-    rawText = rawText.replace("]", " ")
-    rawText = rawText.replace("'", " ")
-    rawText = rawText.translate(rawText.maketrans('', '', string.punctuation))
-    rawText = re.sub('\s+', ' ', rawText)
-    rawText = re.sub(r"\x08.", "", rawText)
-    return rawText
+def cleaningSteps(fileContent=""):
+    fileContent = fileContent.lower()
+    #tokens = re.split('[^a-zA-Z]', fileContent)
+    tokens = re.split('\W', fileContent)
+    tokens = [word for word in tokens if word and len(word) > 2]
+    return tokens
 
 
-def textToTokens(line=""):
-    return line.split(" ")
+def getValidFileTokens(filePath):
+    tokens = []
+    with open(filePath, mode='r', encoding='iso-8859-1') as testFile:
+        fileContent = testFile.read()
+        fileContent = str(fileContent.encode('utf-8'), 'utf-8')
+        if fileContent != "":
+            tokens = cleaningSteps(fileContent)
+    return tokens

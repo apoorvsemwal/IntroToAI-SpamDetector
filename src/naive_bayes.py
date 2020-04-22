@@ -40,15 +40,8 @@ def showEvaluationResults():
 
 
 def processTestFile(filePath="", predictionFileObj=None):
-    with open(filePath, mode='r', encoding='iso-8859-1') as testFile:
-        fileContent = ""
-        for line in testFile:
-            line = line.strip()
-            if line != "":
-                line = str(line.encode('utf-8'), 'utf-8')
-                fileContent += pre_processing.cleaningSteps(line)
-        tokens = pre_processing.textToTokens(fileContent)
-        predictForSpamOrHam(filePath, set(tokens), predictionFileObj)
+    tokens = pre_processing.getValidFileTokens(filePath)
+    predictForSpamOrHam(filePath, set(tokens), predictionFileObj)
 
 
 def predictForSpamOrHam(filepath, tokens, predictionFileObj):
@@ -79,7 +72,7 @@ def getPredictionValues(tokens):
     wordsSpamProb = 0.0
     for token in tokens:
         if cv.wordsWithProb.get(token) is not None:
-            _, hamProb, spamProb = cv.wordsWithProb.get(token)
+            hamProb, spamProb = cv.wordsWithProb.get(token)
             wordsHamProb += math.log(hamProb, 10)
             wordsSpamProb += math.log(spamProb, 10)
     return (logHamClassProb + wordsHamProb, logSpamClassProb + wordsSpamProb)

@@ -7,33 +7,26 @@ from src import pre_processing
 
 
 def createHamAndSpamVocab(filepath="", className=constants.HAM):
-    with open(filepath, mode='r', encoding='iso-8859-1') as trainFile:
-        for line in trainFile:
-            # replace new line by empty space
-            line = str(line.encode('utf-8'), 'utf-8')
-            line = pre_processing.cleaningSteps(line)
-            if line != "":
-                tokens = pre_processing.textToTokens(line)
-                createWordFreqDictionary(tokens, className)
+    tokens = pre_processing.getValidFileTokens(filepath)
+    createWordFreqDictionary(tokens, className)
 
 
 def createWordFreqDictionary(tokens=None, className=""):
     for token in tokens:
-        if token != '' and len(token) >= 2:
-            if className == constants.SPAM:
-                if token in cv.spamWordsWithFreq:
-                    count = cv.spamWordsWithFreq.get(token) + 1
-                    cv.spamWordsWithFreq[token] = count
-                else:
-                    cv.spamWordsWithFreq[token] = 1
-                    cv.wordsInSpam += 1
+        if className == constants.SPAM:
+            if token in cv.spamWordsWithFreq:
+                count = cv.spamWordsWithFreq.get(token) + 1
+                cv.spamWordsWithFreq[token] = count
             else:
-                if token in cv.hamWordsWithFreq:
-                    count = cv.hamWordsWithFreq.get(token) + 1
-                    cv.hamWordsWithFreq[token] = count
-                else:
-                    cv.hamWordsWithFreq[token] = 1
-                    cv.wordsInHam += 1
+                cv.spamWordsWithFreq[token] = 1
+            cv.totalFreqInSpam += 1
+        else:
+            if token in cv.hamWordsWithFreq:
+                count = cv.hamWordsWithFreq.get(token) + 1
+                cv.hamWordsWithFreq[token] = count
+            else:
+                cv.hamWordsWithFreq[token] = 1
+            cv.totalFreqInHam += 1
 
 
 def readFilesFromDirectory(dirPath=""):
@@ -60,16 +53,15 @@ def saveModelData(vocabulary):
         currentWordFreqInSpam = 0 if cv.spamWordsWithFreq.get(word) is None else cv.spamWordsWithFreq.get(word)
         hamWordProb, spamWordProb = calculateWordProbability(currentWordFreqInHam, currentWordFreqInSpam)
         modelData.append((count, word, currentWordFreqInHam, hamWordProb, currentWordFreqInSpam, spamWordProb))
-    modelData = sorted(modelData)
     fileop.writeModelData(modelData)
     fileop.writeCalculatedValues()
 
 
 def calculateWordProbability(wordFreqInHam=0, wordFreqInSpam=0):
     numeratorHam = wordFreqInHam + constants.SMOOTHING
-    denominatorHam = cv.wordsInHam + (cv.vocabLen * constants.SMOOTHING)
+    denominatorHam = cv.totalFreqInHam + (cv.vocabLen * constants.SMOOTHING)
     numeratorSpam = wordFreqInSpam + constants.SMOOTHING
-    denominatorSpam = cv.wordsInSpam + (cv.vocabLen * constants.SMOOTHING)
+    denominatorSpam = cv.totalFreqInSpam + (cv.vocabLen * constants.SMOOTHING)
     return [(numeratorHam / denominatorHam), (numeratorSpam / denominatorSpam)]
 
 
