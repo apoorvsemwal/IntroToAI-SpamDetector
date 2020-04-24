@@ -9,7 +9,7 @@ from src import train_model as tm
 
 if __name__ == '__main__':
     # Model already trained
-    if os.path.exists(constants.RESULTS_PATH + "src.txt"):
+    if os.path.exists(constants.RESULTS_PATH + "model.txt"):
         fileop.readCalculatedValues()
         fileop.readTrainedModelFile()
     else:
