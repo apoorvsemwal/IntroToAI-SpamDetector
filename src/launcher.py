@@ -9,6 +9,8 @@ from src import train_model as tm
 
 if __name__ == '__main__':
     # Model already trained
+    # word = "data"
+    # print(word.replace(" ", "-"))
     if os.path.exists(constants.RESULTS_PATH + "model.txt"):
         fileop.readCalculatedValues()
         fileop.readTrainedModelFile()

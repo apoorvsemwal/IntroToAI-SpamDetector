@@ -30,12 +30,12 @@ def showEvaluationResults():
     print("\n========= Evaluation Sheet =========")
     accuracy = (cv.TruePositive + cv.TrueNegative) / (
             cv.TruePositive + cv.FalsePositive + cv.FalseNegative + cv.TrueNegative)
-    precision = cv.TruePositive / (cv.TruePositive + cv.FalsePositive)
-    recall = cv.TruePositive / (cv.TruePositive + cv.FalseNegative)
-    f1_score = 2 * (recall * precision) / (recall + precision)
     print("Accuracy : ", valueToPercentage(accuracy))
+    precision = cv.TruePositive / (cv.TruePositive + cv.FalsePositive)
     print("Precision : ", valueToPercentage(precision))
+    recall = cv.TruePositive / (cv.TruePositive + cv.FalseNegative)
     print("Recall : ", valueToPercentage(recall))
+    f1_score = 2 * (recall * precision) / (recall + precision)
     print("F1-Score : ", valueToPercentage(f1_score))
 
 
@@ -73,8 +73,8 @@ def getPredictionValues(tokens):
     for token in tokens:
         if cv.wordsWithProb.get(token) is not None:
             hamProb, spamProb = cv.wordsWithProb.get(token)
-            wordsHamProb += math.log(hamProb, 10)
-            wordsSpamProb += math.log(spamProb, 10)
+            wordsHamProb += 0.0 if hamProb == 0.0 else math.log(hamProb, 10)
+            wordsSpamProb += 0.0 if spamProb == 0.0 else math.log(spamProb, 10)
     return (logHamClassProb + wordsHamProb, logSpamClassProb + wordsSpamProb)
 
 

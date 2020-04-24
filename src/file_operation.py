@@ -6,6 +6,7 @@ def writeModelData(modelData):
     with open(constants.RESULTS_PATH + "model.txt", "w", encoding="utf-8") as trainData:
         for wordTuple in modelData:
             count, word, tfHam, hamProb, tfSpam, spamProb = wordTuple
+            word = word.replace(" ", "-")
             trainData.write(
                 str(count) + "  " + word + " " + str(tfHam) + " " + str(round(hamProb, 6)) + " " + str(
                     tfSpam) + " " + str(round(spamProb, 6)) + "\n")
@@ -31,6 +32,7 @@ def readTrainedModelFile():
     with open(constants.RESULTS_PATH + "model.txt", "r", encoding="utf-8") as trainData:
         for line in trainData:
             _, _, word, _, hamProb, _, spamProb = line.split(" ")
+            word = word.replace("-", " ")
             cv.wordsWithProb[word] = (float(hamProb), float(spamProb))
 
 
