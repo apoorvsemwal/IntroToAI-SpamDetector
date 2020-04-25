@@ -1,13 +1,14 @@
 import os
 
-from src import calculated_values as cv
-from src import constants
-from src import file_operation as fileop
-from src import graph
-from src import naive_bayes as nb
-from src import train_model as tm
+import calculated_values as cv
+import constants
+import file_operation as fileop
+import graph
+import naive_bayes as nb
+import train_model as tm
 
-if __name__ == '__main__':
+
+def main():
     # Model already trained
     if os.path.exists(constants.RESULTS_PATH + "model.txt"):
         fileop.readCalculatedValues()
@@ -21,3 +22,7 @@ if __name__ == '__main__':
     testingFilePath = constants.TESTING_FILES
     nb.startPredicting(testingFilePath)
     graph.predictionGraph(cv.predicted_spam, cv.predicted_ham)
+
+
+if __name__ == '__main__':
+    main()

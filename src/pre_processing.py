@@ -1,10 +1,9 @@
 import re
-import string
 
 
 def cleaningSteps(fileContent=""):
     fileContent = fileContent.lower()
-    #tokens = re.split('[^a-zA-Z]', fileContent)
+    # tokens = re.split('[^a-zA-Z]', fileContent)
     tokens = re.split('\W', fileContent)
     tokens = [word for word in tokens if word and len(word) > 2]
     return tokens

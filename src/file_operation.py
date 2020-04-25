@@ -1,5 +1,5 @@
-from src import calculated_values as cv
-from src import constants
+import calculated_values as cv
+import constants
 
 
 def writeModelData(modelData):

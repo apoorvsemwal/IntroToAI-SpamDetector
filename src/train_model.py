@@ -1,9 +1,9 @@
 import os
 
-from src import calculated_values as cv
-from src import constants
-from src import file_operation as fileop
-from src import pre_processing
+import calculated_values as cv
+import constants
+import file_operation as fileop
+import pre_processing
 
 
 def createHamAndSpamVocab(filepath="", className=constants.HAM):

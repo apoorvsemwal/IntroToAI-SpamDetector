@@ -1,6 +1,7 @@
-import numpy as np
 import matplotlib.pyplot as plt
-from src import constants
+import numpy as np
+
+import constants
 
 
 def graph_information():
