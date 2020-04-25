@@ -2,5 +2,4 @@
 test
 train
 *.pyc
-files/*.txt
 files/*.png
