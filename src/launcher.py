@@ -10,6 +10,7 @@ import train_model as tm
 
 def main():
     # Model already trained
+    fileop.readStopWords()
     if os.path.exists(constants.RESULTS_PATH + "model.txt"):
         fileop.readCalculatedValues()
         fileop.readTrainedModelFile()

@@ -1,11 +1,12 @@
 import re
+import calculated_values as cv
 
 
 def cleaningSteps(fileContent=""):
     fileContent = fileContent.lower()
     # tokens = re.split('[^a-zA-Z]', fileContent)
     tokens = re.split('\W', fileContent)
-    tokens = [word for word in tokens if word and len(word) > 2]
+    tokens = [word for word in tokens if word and (word in cv.stopWords) and len(word) > 2]
     return tokens
 
 

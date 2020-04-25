@@ -4,5 +4,6 @@ SMOOTHING = 0.5
 RESULTS_PATH = "../results/"
 TRAINING_FILES = "../train/"
 TESTING_FILES = "../test/"
+STOP_WORDS = "../files/"
 TOTAL_TEST_HAM = 400
 TOTAL_TEST_SPAM = 400

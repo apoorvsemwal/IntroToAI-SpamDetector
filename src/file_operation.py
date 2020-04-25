@@ -37,3 +37,9 @@ def readTrainedModelFile():
 def getPredictionFileObj():
     f = open(constants.RESULTS_PATH + "result.txt", "w", encoding="utf-8")
     return f
+
+
+def readStopWords():
+    with open(constants.STOP_WORDS + "stopwords.txt", "r", encoding="utf-8") as freqWords:
+        for line in freqWords:
+            cv.stopWords.append(line.replace("\n", ""))

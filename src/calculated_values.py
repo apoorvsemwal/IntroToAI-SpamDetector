@@ -11,6 +11,7 @@ spamWordsWithFreq = {}
 hamWordsWithFreq = {}
 wordsWithProb = {}
 
+stopWords = []
 predictionCounter = 0
 # the values index is use to read calculated information from file when model is already trained.
 valuesIndex = {"hamFilesCount": hamFilesCount, "spamFilesCount": spamFilesCount,
