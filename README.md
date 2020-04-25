@@ -37,3 +37,6 @@ _**Instructions to run the project:**_
 	python launcher.py
 	
 * Check results folder '\IntroToAI-SpamDetector\results'
+
+Removing StopWords Observation:
+![StopWords ResultsImage](files/Screenshot%202020-04-25%20at%201.10.14%20AM.png)
