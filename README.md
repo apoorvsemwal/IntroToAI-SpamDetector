@@ -3,7 +3,7 @@
 
 ![Spam-Ham Classification](https://1.bp.blogspot.com/-R4PgHVRlJvg/WhrDWjWy1AI/AAAAAAAAdCs/CMrnBlGaf6kSzm4TOQPN7y2Pf6E-QpGUACLcBGAs/s400/ml.PNG)
 
-[Project Report Link](https://drive.google.com/file/d/1Iww6d5hz8D5X-D0Yn7l_kFIRkHc6RSSS/view)
+[Project Report Link](https://drive.google.com/file/d/1w5wy257YnTG7PgFft069B2Ppyk3J-8Y4/view)
 
 **Main file: launcher.py**
 
@@ -29,7 +29,12 @@ _**Files information:**_
 
 _**Instructions to run the project:**_
 * Download/Clone the Project Repo to your local machine - [IntroToAI-SpamDetector](https://github.com/apoorvsemwal/IntroToAI-SpamDetector.git)
-* Note: Project can also be downloaded from google drive - [Google Drive Link](https://drive.google.com/drive/folders/1hFeO5xocprJfMTZcDSfcwEt-uOsAlrHS)
+
+	**Note:** Project can also be downloaded from google drive - [Google Drive Link](https://drive.google.com/drive/folders/1hFeO5xocprJfMTZcDSfcwEt-uOsAlrHS)
+
+* Copy the train and test with names as 'train' and 'test' respectively inside the project root directory i.e. 'IntroToAI-SpamDetector'.
+
+	**Note:** Train and Test data folders can be downloaded from google drive. The final directory structure should look exactly as shown in google drive - [Google Drive Link](https://drive.google.com/drive/folders/1hFeO5xocprJfMTZcDSfcwEt-uOsAlrHS)
 
 * Navigate to '\IntroToAI-SpamDetector\src' in your terminal
 
